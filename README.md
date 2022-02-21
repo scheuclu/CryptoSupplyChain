@@ -1,112 +1,59 @@
-# Supply chain & data auditing
+# Egg Supply chain tracking
 
-This repository containts an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
+This project implements supply chain tracking for eggs.
+Everything is implemented completely decentralized via Ethereum Smart Contracts and IPFS.
 
-The DApp User Interface when running should look like...
-
-![truffle test](images/ftc_product_overview.png)
-
-![truffle test](images/ftc_farm_details.png)
-
-![truffle test](images/ftc_product_details.png)
-
-![truffle test](images/ftc_transaction_history.png)
+The goal is to allow customers more trust in their purchase. 
+In recent years, consumers have become more and more aware of the horrendous conditions in some chicken farms. At the same time, there have been repeated scandals or eggs being wrongfully labeled as organic.
 
 
-## Getting Started
+UML diagrams are coded using mermaid.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-Please make sure you've already installed ganache-cli, Truffle and enabled MetaMask extension in your browser.
+## 1 . Project Plan
 
+### UML
+
+Here's what the activity diagram looks like
+
+```mermaid
+    sequenceDiagram
+    participant Eggs
+    participant Farmer
+    participant Distributor
+    participant Retailer
+    participant Consumer
+    Farmer ->> Eggs: harvestItem()
+    Farmer ->> Eggs: processItem
+    Farmer ->> Eggs: packItem()
+    Farmer ->> Eggs: addItem()
+    Distributor ->> Farmer: buyItem()
+    Farmer ->> Retailer: shipItem()
+    Retailer ->> Farmer: recieveItem()
+    Consumer ->> Retailer: purchaseItem()
+    Eggs ->> Consumer: fetchItem()
+    Eggs ->> Consumer: fetchItem()
 ```
-Give examples (to be clarified)
-```
+### Libraries
+TODO
+### IPFS
+TODO
 
-### Installing
+## 2. Smart Contracts
+### Define and implement interfaces
+TODO
+### Build out AccessControl Contracts
+TODO
+### Build out Base Contract
+TODO
+### Build out Core Contract
+TODO
 
-> The starter code is written for **Solidity v0.4.24**. At the time of writing, the current Truffle v5 comes with Solidity v0.5 that requires function *mutability* and *visibility* to be specified (please refer to Solidity [documentation](https://docs.soliditylang.org/en/v0.5.0/050-breaking-changes.html) for more details). To use this starter code, please run `npm i -g truffle@4.1.14` to install Truffle v4 with Solidity v0.4.24. 
-
-A step by step series of examples that tell you have to get a development env running
-
-Clone this repository:
-
-```
-git clone https://github.com/udacity/nd1309/tree/master/course-5/project-6
-```
-
-Change directory to ```project-6``` folder and install all requisite npm packages (as listed in ```package.json```):
-
-```
-cd project-6
-npm install
-```
-
-Launch Ganache:
-
-```
-ganache-cli -m "spirit supply whale amount human item harsh scare congress discover talent hamster"
-```
-
-Your terminal should look something like this:
-
-![truffle test](images/ganache-cli.png)
-
-In a separate terminal window, Compile smart contracts:
-
-```
-truffle compile
-```
-
-Your terminal should look something like this:
-
-![truffle test](images/truffle_compile.png)
-
-This will create the smart contract artifacts in folder ```build\contracts```.
-
-Migrate smart contracts to the locally running blockchain, ganache-cli:
-
-```
-truffle migrate
-```
-
-Your terminal should look something like this:
-
-![truffle test](images/truffle_migrate.png)
-
-Test smart contracts:
-
-```
-truffle test
-```
-
-All 10 tests should pass.
-
-![truffle test](images/truffle_test.png)
-
-In a separate terminal window, launch the DApp:
-
-```
-npm run dev
-```
-
-## Built With
-
-* [Ethereum](https://www.ethereum.org/) - Ethereum is a decentralized platform that runs smart contracts
-* [IPFS](https://ipfs.io/) - IPFS is the Distributed Web | A peer-to-peer hypermedia protocol
-to make the web faster, safer, and more open.
-* [Truffle Framework](http://truffleframework.com/) - Truffle is the most popular development framework for Ethereum with a mission to make your life a whole lot easier.
+## 3. Tests
 
 
-## Authors
+## 4. Deployment
 
-See also the list of [contributors](https://github.com/your/project/contributors.md) who participated in this project.
 
-## Acknowledgments
 
-* Solidity
-* Ganache-cli
-* Truffle
-* IPFS
