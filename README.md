@@ -36,9 +36,14 @@ Here's what the activity diagram looks like
     Eggs ->> Consumer: fetchItem()
 ```
 ### Libraries
-TODO
+I am using the following libraries:
+
+- **truffle**: Used as development framework.
+- **ganache**: Local blockchain used for development.
+- **web3**: Used to interact with the ethereum network.
+- **mocca**: Used for testing. The developement of this DApp will be test-driven.
 ### IPFS
-TODO
+The website itself will be hosted on IPFS, making this a truly decentralized service.
 
 ## 2. Smart Contracts
 ### Define and implement interfaces
