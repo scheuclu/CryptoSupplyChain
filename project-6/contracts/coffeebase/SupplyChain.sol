@@ -4,7 +4,7 @@ pragma solidity ^0.8.12;
 contract SupplyChain {
 
   // Define 'owner'
-  address owner; //TODO Does this need to be payable?
+  address owner;
 
   // Define a variable called 'upc' for Universal Product Code (UPC)
   uint  upc;
@@ -312,7 +312,7 @@ contract SupplyChain {
   itemSKU,
   itemUPC,
   ownerID,
-  originFarmerID, //TODO lukas
+  originFarmerID,
   originFarmName,
   originFarmInformation,
   originFarmLatitude,
@@ -358,15 +358,15 @@ contract SupplyChain {
   
     return 
     (
-    itemSKU,
-    itemUPC,
-    productID,
-    productNotes,
-    productPrice,
-    itemState,
-    distributorID,
-    retailerID,
-    consumerID
+      itemSKU,
+      itemUPC,
+      productID,
+      productNotes,
+      productPrice,
+      itemState,
+      distributorID,
+      retailerID,
+      consumerID
     );
   }
 }

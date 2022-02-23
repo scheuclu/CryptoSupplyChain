@@ -2,7 +2,6 @@
 (function (global){
 var ethJSABI = require("ethjs-abi");
 var BlockchainUtils = require("truffle-blockchain-utils");
-var Web3 = require("web3");
 
 // For browserified version. If browserify gave us an empty version,
 // look for the one provided by the user.
@@ -25,7 +24,7 @@ var contract = (function(module) {
     return this.provider.sendAsync.apply(this.provider, arguments);
   };
 
-  var BigNumber = (new Web3()).toBigNumber(0).constructor;
+  var BigNumber = (new Web3()).toBigNumber(0).constructor; //TODO(lukas) This causes an error
 
   var Utils = {
     is_object: function(val) {

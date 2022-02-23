@@ -1,3 +1,4 @@
+
 App = {
     web3Provider: null,
     contracts: {},
@@ -74,7 +75,7 @@ App = {
         }
         // If no injected web3 instance is detected, fall back to Ganache
         else {
-            App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+            App.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545');//TODO(lukas) possibly change this
         }
 
         App.getMetaskAccountID();
@@ -287,8 +288,8 @@ App = {
     },
 
     fetchItemBufferOne: function () {
-    ///   event.preventDefault();
-    ///    var processId = parseInt($(event.target).data('id'));
+        /// event.preventDefault();
+        /// var processId = parseInt($(event.target).data('id'));
         App.upc = $('#upc').val();
         console.log('upc',App.upc);
 
