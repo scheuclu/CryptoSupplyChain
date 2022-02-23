@@ -294,5 +294,19 @@ I am using the following libraries:
 - **ganache**: Local blockchain used for development.
 - **web3**: Used to interact with the ethereum network.
 - **mocca**: Used for testing. The developement of this DApp will be test-driven.
+
+
+
+## Deployment
+
+### Contract
+The contract is deployed on the rinkeby test net, using the following commands
+
+```bash
+truffle compile
+truffle migrate --reset --network rinkeby
+```
+The contract address is [0x4e9757b26374b166c69eb5443952560b6a18d93b](https://rinkeby.etherscan.io/address/0x4e9757b26374b166c69eb5443952560b6a18d93b)
+
 ### IPFS
 The website itself will be hosted on IPFS, making this a truly decentralized service.
