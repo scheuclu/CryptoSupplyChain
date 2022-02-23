@@ -10,11 +10,18 @@ jobs:
   embed-code:
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Get base branch
+        id: vars
+        run: |
+          base_ref=${{ github.head_ref || github.ref }}
+          echo ::set-output name=base_branch::${base_ref#refs/*/}
+          
       - uses: actions/checkout@v2
         with:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
-          ref: refs/heads/${{ github.head_ref }}
+          ref: refs/heads/${{ steps.vars.outputs.base_branch }}
 
       - uses: tdabasinskas/markdown-embed-code@fork
         with:
