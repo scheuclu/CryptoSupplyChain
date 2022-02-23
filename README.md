@@ -307,6 +307,3 @@ truffle compile
 truffle migrate --reset --network rinkeby
 ```
 The contract address is [0x4e9757b26374b166c69eb5443952560b6a18d93b](https://rinkeby.etherscan.io/address/0x4e9757b26374b166c69eb5443952560b6a18d93b)
-
-### IPFS
-The website itself will be hosted on IPFS, making this a truly decentralized service.
