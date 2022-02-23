@@ -9,6 +9,15 @@ In recent years, consumers have become more and more aware of the horrendous con
 
 UML diagrams are coded using mermaid.
 
+I used the following library version:
+
+**Truffle**: 5.5.0
+**Ganache**: 7.0.1
+**Solidity**: 0.8.12
+**Node**: 16.13.2
+**Web3.js**: 1.5.3
+
+
 ## 1 . Project Plan
 
 ### UML
