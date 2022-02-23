@@ -8,9 +8,6 @@ This is a test
 
 
 
-```mermaid:diagram.mermaid
-
-```
-```mermaid:diagram.mermaid
+```mermaid:./diagram.mermaid
 
 ```
