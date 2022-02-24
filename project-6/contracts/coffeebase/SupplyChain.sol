@@ -8,7 +8,6 @@ import '../coffeeaccesscontrol/RetailerRole.sol';
 import '../coffeeaccesscontrol/ConsumerRole.sol';
 
 contract SupplyChain is FarmerRole,DistributorRole,RetailerRole,ConsumerRole {
-//contract SupplyChain is FarmerRole {
 
   // Define 'owner'
   address owner;
@@ -199,7 +198,7 @@ contract SupplyChain is FarmerRole,DistributorRole,RetailerRole,ConsumerRole {
   // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
   // Call modifier to check if upc has passed previous supply chain stage
   // Call modifier to verify caller of this function
-  function processItem(uint _upc) verifyCaller(msg.sender) harvested(_upc) onlyFarmer public {
+  function processItem(uint _upc) verifyCaller(items[_upc].originFarmerID) harvested(_upc) onlyFarmer public {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
     
@@ -210,7 +209,7 @@ contract SupplyChain is FarmerRole,DistributorRole,RetailerRole,ConsumerRole {
   // Define a function 'packItem' that allows a farmer to mark an item 'Packed'
   // Call modifier to check if upc has passed previous supply chain stage
   // Call modifier to verify caller of this function
-  function packItem(uint _upc) verifyCaller(msg.sender) processed(_upc) onlyFarmer public {
+  function packItem(uint _upc) verifyCaller(items[_upc].originFarmerID) processed(_upc) onlyFarmer public {
     // Update the appropriate fields
     items[_upc].itemState = State.Packed;
     
@@ -221,7 +220,7 @@ contract SupplyChain is FarmerRole,DistributorRole,RetailerRole,ConsumerRole {
   // Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
   // Call modifier to check if upc has passed previous supply chain stage
   // Call modifier to verify caller of this function
-  function sellItem(uint _upc, uint _price) verifyCaller(msg.sender) packed(_upc) onlyFarmer public {
+  function sellItem(uint _upc, uint _price) verifyCaller(items[_upc].originFarmerID) packed(_upc) onlyFarmer public {
     // Update the appropriate fields
     items[_upc].itemState = State.ForSale;
     items[_upc].productPrice = _price;
@@ -255,7 +254,7 @@ contract SupplyChain is FarmerRole,DistributorRole,RetailerRole,ConsumerRole {
   // Use the above modifers to check if the item is sold
   // Call modifier to check if upc has passed previous supply chain stage
   // Call modifier to verify caller of this function
-  function shipItem(uint _upc) verifyCaller(msg.sender) sold(_upc) public onlyDistributor {
+  function shipItem(uint _upc) verifyCaller(items[_upc].distributorID) sold(_upc) public onlyDistributor {
     // Update the appropriate fields
     items[_upc].itemState = State.Shipped;
     
