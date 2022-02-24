@@ -41,9 +41,14 @@ contract('SupplyChain', function(accounts) {
     console.log("Retailer: accounts[3] ", accounts[3])
     console.log("Consumer: accounts[4] ", accounts[4])
 
+    
     // 1st Test
     it("Testing smart contract function harvestItem() that allows a farmer to harvest coffee", async() => {
         const supplyChain = await SupplyChain.deployed()
+        await supplyChain.addFarmer(originFarmerID)
+        await supplyChain.addDistributor(distributorID)
+        await supplyChain.addRetailer(retailerID)
+        await supplyChain.addConsumer(consumerID)
         
         // Declare and Initialize a variable for event
         var eventEmitted = false
@@ -55,11 +60,10 @@ contract('SupplyChain', function(accounts) {
         });
 
 
-
         // Mark an item as Harvested by calling function harvestItem()
         await supplyChain.harvestItem(upc,
             originFarmerID, originFarmName, originFarmInformation, originFarmLatitude, originFarmLongitude, productNotes,
-            { from: accounts[1] })
+            { from: accounts[1], gas: 3000000 })
 
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
@@ -141,7 +145,7 @@ contract('SupplyChain', function(accounts) {
         supplyChain.ForSale(null, (error, event)=>{eventEmitted = true;});
         
         // Mark an item as ForSale by calling function sellItem()
-        await supplyChain.sellItem(upc, 100, { from: accounts[1] })
+        await supplyChain.sellItem(upc, 12345, { from: accounts[1] })
         
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -149,13 +153,13 @@ contract('SupplyChain', function(accounts) {
         
         // Verify the result set
         assert.equal(resultBufferTwo[5], 3, 'Error: Item state has not been marked as ForSale')
-        assert.equal(resultBufferTwo[4], 100, 'Error: Price has not been set correctly')
+        assert.equal(resultBufferTwo[4], 12345, 'Error: Price has not been set correctly')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
         assert.equal(resultBufferOne[2], accounts[1], 'Error: Wrong owner')
         //TODO(lukas) should the owner change here?
     })    
 
-    // 5th Test
+    // // 5th Test
     it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async() => {
         const supplyChain = await SupplyChain.deployed()
         
@@ -168,11 +172,14 @@ contract('SupplyChain', function(accounts) {
         // Mark an item as Sold by calling function buyItem()
         let wei_seller_before = Number(await web3.eth.getBalance(accounts[1]))//TODO(lukas) this seems to introduce rounding errors
         let wei_buyer_before = Number(await web3.eth.getBalance(accounts[2]))
-        await supplyChain.buyItem(upc, { from: accounts[2], value: 102 })
+        await supplyChain.buyItem(upc, { from: accounts[2], value: 22345 })
         let wei_seller_after = Number(await web3.eth.getBalance(accounts[1]))
         let wei_buyer_after = Number(await web3.eth.getBalance(accounts[2]))
-        // console.log(wei_seller_before, wei_seller_after)
-        // console.log(wei_buyer_before, wei_buyer_after)
+        console.log("wei_seller_before", wei_seller_before)
+        console.log("wei_seller_after ", wei_seller_after)
+        console.log("wei_buyer_before ", wei_buyer_before)
+        console.log("wei_buyer_after  ", wei_buyer_after)
+            
         
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -184,8 +191,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferTwo[5], 4, 'Error: Item state has not been marked as Bought')
         assert.equal(eventEmitted, true, 'Invalid event emitted')
         assert.equal(wei_buyer_before>wei_buyer_after, true,'Buyer has not spent money')
-        ////assert.equal(wei_seller_before==wei_seller_after,false,  'Seller has not recieved correct amount')
-        //TODO(lukas) The above line fails and I do not know why
+        assert.equal(wei_seller_before==wei_seller_after,false,  'Seller has not recieved correct amount')
     })    
 
     // 6th Test
@@ -289,7 +295,7 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferTwo[1], upc, 'Error: upc not fetched correcly')
         assert.equal(resultBufferTwo[2], sku+upc, 'Error: productID not fetched correcly')
         assert.equal(resultBufferTwo[3], productNotes, 'Error: productNotes not fetched correcly')
-        assert.equal(resultBufferTwo[4], 100, 'Error: productPrice not fetched correcly')
+        assert.equal(resultBufferTwo[4], 12345, 'Error: productPrice not fetched correcly')
         assert.equal(resultBufferTwo[5], 7, 'Error: itemState not fetched correcly')
         assert.equal(resultBufferTwo[6], accounts[2], 'distributorID: sku not fetched correcly')
         assert.equal(resultBufferTwo[7], accounts[3], 'retailerID: sku not fetched correcly')
